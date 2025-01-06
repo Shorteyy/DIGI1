@@ -16,6 +16,9 @@ explore: orders {
     sql_on: ${orders.user_id} = ${users.id} ;;
     relationship: many_to_one
   }
+  always_filter: {
+    filters: [orders.gender: "male"]
+  }
 }
 
 explore: inventory_items {
@@ -31,6 +34,8 @@ explore: inventory_items {
     relationship: many_to_one
   }
 }
+
+explore: distribution_centers {}
 
 explore: order_items {
   join: users {
