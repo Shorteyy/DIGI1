@@ -67,6 +67,47 @@ view: order_items {
     value_format: "€#,##0.00"
   }
 
+  parameter: measure_selector {
+    type: string
+    allowed_value: {
+      label: "Count"
+      value: "count"
+    }
+    allowed_value: {
+      label: "Sum sales price"
+      value: "sum"
+    }
+  }
+
+  measure: dyn_kpi {
+    type: number
+    sql: CASE WHEN {% parameter measure_selector%} = 'count' THEN
+      ${count} ELSE ${sum_of_sale_price} END;;
+  }
+
+  parameter: price_parameter {
+    default_value: "SUM"
+    type:  unquoted
+    allowed_value: {
+      label: "sum_price"
+      value: "SUM"
+    }
+    allowed_value: {
+      label: "average_price"
+      value: "AVG"
+    }
+    allowed_value: {
+      label: "max_price"
+      value: "MAX"
+    }
+  }
+
+  measure: parametrized_sale_price {
+    type: number
+    label_from_parameter: price_parameter
+    sql: {% parameter price_parameter %}(${sale_price}) ;;
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [

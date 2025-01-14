@@ -11,6 +11,10 @@ datagroup: digi1_default_datagroup {
 persist_with: digi1_default_datagroup
 
 explore: orders {
+  access_filter: {
+    field: users.country
+    user_attribute: retail_country
+  }
   join: users {
     type: left_outer
     sql_on: ${orders.user_id} = ${users.id} ;;

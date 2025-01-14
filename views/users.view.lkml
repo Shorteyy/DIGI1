@@ -1,5 +1,7 @@
 view: users {
-  sql_table_name: `thelook_ecommerce.users` ;;
+  derived_table: {
+    sql: SELECT * FROM `thelook_ecommerce.users`;;
+  }
   drill_fields: [id]
 
   dimension: id {
@@ -73,13 +75,13 @@ view: users {
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
-	id,
-	last_name,
-	first_name,
-	orders.count,
-	order_items.count,
-	events.count
-	]
+  id,
+  last_name,
+  first_name,
+  orders.count,
+  order_items.count,
+  events.count
+  ]
   }
 
 }
